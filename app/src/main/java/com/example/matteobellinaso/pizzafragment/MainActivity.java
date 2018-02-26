@@ -38,14 +38,13 @@ public class MainActivity extends AppCompatActivity implements HeadListener {
         }else{
             articleSelected(position);
         }
-
-
     }
 
     @Override
     public void articleSelected(int position) {
 
        String dettaglioPizza = Pizza.pizzaDetails[position];
+       String dettaglioTitolo = Pizza.pizzaMenu[position];
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements HeadListener {
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             Bundle bundle = new Bundle();
             bundle.putString("posizione", dettaglioPizza);
+            bundle.putString("titolo", dettaglioTitolo);
             second_fragment.setArguments(bundle);
 
             fragmentTransaction.replace(R.id.fragment_container, second_fragment);
@@ -64,10 +64,12 @@ public class MainActivity extends AppCompatActivity implements HeadListener {
                 //LAND
                 PizzaArticleFragment pizzaArticleFragment = (PizzaArticleFragment) fragmentManager.findFragmentById(R.id.article_fragment);
 
-                pizzaArticleFragment.updateView(dettaglioPizza);
+                pizzaArticleFragment.updateView(dettaglioPizza, dettaglioTitolo);
 
             }
 
         }
     }
+
+
 }
